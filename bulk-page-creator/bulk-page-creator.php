@@ -3,7 +3,7 @@
 Plugin Name: Bulk Page Creator
 Plugin URI: http://solid-code.co.uk/2011/05/bulk-page-creator/
 Description: Allows you to create multiple pages in a batch/bulk manner saving time when initially setting up your WordPress site.
-Version: 1.0.5
+Version: 1.0.6
 Author: Dagan Lev
 Author URI: http://solid-code.co.uk
 
@@ -97,7 +97,7 @@ if (!class_exists("sc_bulk_page_creator")) {
 		}
 		?>
 		<div class="wrap" id="sc-bpc-div">
-			<?php if($_GET['saved']=='1'){ ?>
+			<?php if(isset($_GET['saved']) && $_GET['saved']=='1'){ ?>
 				<div id="setting-error-settings_updated" class="updated settings-error"><p><strong>Settings saved.</strong></p></div>
 			<?php } ?>
 			<h2>Bulk Page Creator</h2>

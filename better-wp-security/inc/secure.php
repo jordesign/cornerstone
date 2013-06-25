@@ -17,7 +17,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 			$data = base64_decode( $HTTP_RAW_POST_DATA );
 
 			if ( $data ) {
-				$unserialized_data = unserialize( $data );
+				$unserialized_data = @unserialize( $data );
 				if ( isset( $unserialized_data['iwp_action'] ) ) {
 					$iwp_action = $unserialized_data['iwp_action'];
 				}
@@ -68,12 +68,17 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 				//ban extra-long urls if turned on
 				if ( $bwpsoptions['st_longurl'] == 1 && ! is_admin() ) {
 				
-					if ( strlen( $_SERVER['REQUEST_URI'] ) > 255 ||
-					
-						strpos( $_SERVER['REQUEST_URI'], "eval(" ) ||
-						strpos( $_SERVER['REQUEST_URI'], "CONCAT" ) ||
-						strpos( $_SERVER['REQUEST_URI'], "UNION+SELECT" ) ||
-						strpos( $_SERVER['REQUEST_URI'], "base64" ) ) {
+					if ( 
+						! strpos( $_SERVER['REQUEST_URI'], 'infinity=scrolling&action=infinite_scroll' ) &&
+						(
+							strlen( $_SERVER['REQUEST_URI'] ) > 255 ||
+							strpos( $_SERVER['REQUEST_URI'], 'eval(' ) ||
+							strpos( $_SERVER['REQUEST_URI'], 'CONCAT' ) ||
+							strpos( $_SERVER['REQUEST_URI'], 'UNION+SELECT' ) ||
+							strpos( $_SERVER['REQUEST_URI'], 'base64' ) 
+						) 
+
+					) {
 						@header( 'HTTP/1.1 414 Request-URI Too Long' );
 						@header( 'Status: 414 Request-URI Too Long' );
 						@header( 'Cache-Control: no-cache, must-revalidate' );
@@ -683,7 +688,7 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 
 					} else {
 
-						$duration = __( 'parmanently', $this->hook );
+						$duration = __( 'permanently', $this->hook );
 
 					}
 			
@@ -888,9 +893,12 @@ if ( ! class_exists( 'bwps_secure' ) ) {
 		 *
 		 **/
 		function remove_script_version( $src ){
-		
-			$parts = explode( '?', $src );
-			return $parts[0];
+
+			if ( strpos( $src, 'ver=' ) ) {
+				return substr( $src, 0, strpos( $src, 'ver=' ) - 1 );
+			} else {
+				return $src;
+			}
 			
 		}
 		

@@ -37,6 +37,9 @@ Added a "draft" option to publish pages in draft status
 = 1.0.5 =
 Added a multiple page addition with comma seperation
 
+= 1.0.6 =
+Amended potential issue with safari and draft pages in JavaScript
+
 == Screenshots ==
 
 1. View of bulk page creator screen

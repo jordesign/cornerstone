@@ -23,7 +23,7 @@ jQuery(document).ready(function(){
     
     //get the draft pages
     var valDrafts = jQuery('#pagesDraft').val();
-    if(valDrafts!=''){
+    if(valDrafts && valDrafts!=''){
         if(valDrafts.match(',')){
             //its an array
             var arrDrafts = valDrafts.split(",");

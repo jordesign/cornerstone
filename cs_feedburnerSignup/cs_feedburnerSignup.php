@@ -49,14 +49,17 @@ class cs_feedburner extends WP_Widget {
 		?>
 		
 <!--begin of cs_feedburner Widget--> 
-<div class="cs_feedburner"> 
-<?php if($csfs_title) { ?>
-    <h4><?php echo $csfs_title; ?></h4>
-<?php } ?>
+<?php echo $before_widget; ?>
+        <?php if($csfs_title) { ?>
+            <?php echo $before_title; ?><?php echo $csfs_title; ?><?php echo $after_title; ?>
+        <?php } ?>
+        
+        <?php if($csfs_blurb) { ?>
+            <p><?php echo $csfs_blurb; ?></p>
+        <?php } ?>
 
-<?php if($csfs_blurb) { ?>
-    <p><?php echo $csfs_blurb; ?><p>
-<?php } ?>
+<?php echo $after_widget; ?>
+    
 
 
 <!-- Subscribe -->

@@ -55,9 +55,9 @@ class cs_socialButtons extends WP_Widget {
 		?>
 		
 <!--begin of cs_socialButtons Widget--> 
-<div class="cs_socialButtons">
+<?php echo $before_widget; ?>
 <?php if($cssb_title) { ?>
-    <h4><?php echo $cssb_title; ?></h4>
+    <?php echo $before_title; ?><?php echo $cssb_title; ?><?php echo $after_title; ?>
 <?php } ?>
 <ul> 
     
@@ -111,7 +111,8 @@ class cs_socialButtons extends WP_Widget {
 
 		 
 		
-	</ul></div> <!-- End Widget -->
+	</ul>
+	<?php echo $after_widget; ?> <!-- End Widget -->
 
 <!--end of socialButtons widget--> 
 		<?php
