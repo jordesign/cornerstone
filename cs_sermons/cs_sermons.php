@@ -306,7 +306,8 @@ if(function_exists("register_field_group"))
  *  Functions to output the sermon/s within templates. Also used later for the widgets & Shortcodes
  *  
  */
-
+//
+//
 //Output a list of sermons by date
 function cs_list_sermons(
     $sermonCount = NULL,     //Number of Sermons to show. Defaults to 1
@@ -358,5 +359,143 @@ function cs_list_sermons(
     /* Restore original Post Data */
     wp_reset_postdata();
  }
+ 
+ //
+ //
+ //Filter the_title() to include date for sermons
+ function cs_sermon_filter_title($title) {
+ 	if( is_main_query() && get_post_type() == 'sermon' && in_the_loop() ) {
+ 		
+ 				
+ 		$new_title = ' <span class="cs_sermon_date">';
+ 		$new_title .= get_the_date();
+ 		$new_title .= '</span>';
+ 	    $title =  $title . $new_title;	
+ 	}	
+ 	
+ 
+ 	return $title; 	
+ 	
+ }
+ add_filter('the_title', 'cs_sermon_filter_title');
+ 
+ //
+ //
+ //Filter the_content() for sermons
+ function cs_sermon_filter_content($content) {
+ 	if( is_singular() && is_main_query() && get_post_type() == 'sermon' ) {
+ 	
+ 	    $cs_speakers = get_the_terms( get_the_ID(), 'speaker' );
+ 	    $cs_series = get_the_terms( get_the_ID(), 'series');
+ 	    $cs_sermon_src = 
+ 	    
+ 	    //add the audio player
+ 	    $new_content = '<audio src="';
+ 	    $new_content .= get_field('sermon_audio');
+ 	    $new_content .='" controls="controls"></audio>';
+ 		$new_content .= '<p class="cs_sermon_meta">';
+ 		
+ 		// Add speakers
+ 		if ( $cs_speakers && ! is_wp_error( $cs_speakers ) ) : 
+ 		    
+ 		    $new_content .= '<span class="cs_sermon_speaker">Speaker: ';
+ 		
+ 			foreach ( $cs_speakers as $term ) {
+ 			    $new_content .= '<a href="' . home_url() . '/' . $term->taxonomy . '/' .  $term->slug . '">' . $term->name . '</a> &nbsp;';
+ 				
+ 			}
+ 			$new_content .= '</span>';
+ 			
+         endif;
+         
+         // add series
+         if ( $cs_series && ! is_wp_error( $cs_series ) ) : 
+             
+             $new_content .= '<span class="cs_sermon_series">Series: ';
+         
+         	foreach ( $cs_series as $term ) {
+         	    $new_content .= '<a href="' . home_url() . '/' . $term->taxonomy . '/' . $term->slug . '">' . $term->name . '</a> &nbsp;';
+         		
+         	}
+         	$new_content .= '</span>';
+         	
+         endif;
+ 		  		
+ 		  $new_content .= '</p>';		
+ 	    $content = $new_content . $content;	
+ 	}	
+ 	return $content;
+ }
+ add_filter('the_content', 'cs_sermon_filter_content');
+ 
+ 
+ //
+ //
+ // Output CS Sermons taxonomy data
+ 
+ function cs_sermon_taxonomy_details() { 
+     if (is_tax('speaker')){
+         $cs_sermon_tax = get_the_terms( get_the_ID(), 'speaker' );
+     }
+     if (is_tax('series')){
+         $cs_sermon_tax = get_the_terms( get_the_ID(), 'series' );
+     } ?>
+         
+     <?php foreach ( $cs_sermon_tax as $term ) {  ?>
+         <p class="cs_sermon_taxonomy_name">
+             <?php echo $term->taxonomy; ?>
+         </p>
+         <h1><?php echo $term->name; ?></h1>
+     <?php } ?>
+     
+     <div class="cs_sermon_tax_details">
+     
+         <?php if (is_tax('speaker')){
+             print apply_filters( 'taxonomy-images-list-the-terms', '',array(
+                 'image_size' => 'medium',
+                 'class' => 'cs_sermon_tax_image',
+                 'taxonomy' => 'speaker',
+                 'after'        => '',
+                     'after_image'  => '',
+                     'before'       => '',
+                     'before_image' => '',
+                 ) ); 
+                 echo term_description( '', get_query_var( 'speaker' ) ); 
+         }
+         if (is_tax('series')){
+             print apply_filters( 'taxonomy-images-list-the-terms', '',array(
+                 'image_size' => 'medium',
+                 'class' => 'cs_sermon_tax_image',
+                 'taxonomy' => 'series',
+                 'after'        => '',
+                     'after_image'  => '',
+                     'before'       => '',
+                     'before_image' => '',
+                 ) ); 
+                 echo term_description( '', get_query_var( 'series' ) );
+         }
+         
+          ?>
+     </div>
+ 
+ <?php }
+ 
+ 
+ //
+ //
+ // Pre Get Posts stuff for taxonomy archive pages
+ function cs_sermon_query( $query ) {
+     if ( is_admin() || ! $query->is_main_query() )
+         return;
+ 
+     if ( is_tax( 'speaker' ) || is_tax( 'series' ) ) {
+         $query->set( 'post_type', 'sermon' );
+         return;
+     }
+ }
+ add_action( 'pre_get_posts', 'cs_sermon_query', 1 );
+ 
+ 
+ 
 
 
