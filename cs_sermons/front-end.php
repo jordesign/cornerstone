@@ -30,7 +30,7 @@ function cs_list_sermons(
     	while ( $cs_sermon_query->have_posts() ) {
     		$cs_sermon_query->the_post(); ?>
     		    
-    		    <div class="cs_sermon">
+    		    <div class="cs_sermon <?php if ($sermonImage) { echo 'hasimage';} ?>">
     		    
     		        <?php if ($sermonImage) {
     		            $size = apply_filters( 'cs_sermon_img_size', "cs_sermon_img" ); // (thumbnail, medium, large, full or custom size)
@@ -46,7 +46,7 @@ function cs_list_sermons(
     		        }  ?>
     		        
     		        <p class="cs_sermon_title">
-    		            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a> &nbsp;
+    		            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a> 
     		            <span class="cs_sermon_date"><?php the_date(); ?></span>
     		        </p>
     		        <audio src="<?php echo the_field('sermon_audio'); ?>" controls="controls"></audio>
@@ -87,7 +87,7 @@ function cs_list_sermons(
      	while ( $cs_sermon_query->have_posts() ) {
      		$cs_sermon_query->the_post(); ?>
      		    
-     		    <div class="cs_sermon">
+     		    <div class="cs_sermon <?php if ($sermonImage) { echo 'hasimage';} ?>">
      		    
          		    <?php if ($sermonImage) {
          		        $size = apply_filters( 'cs_sermon_img_size', "cs_sermon_img" ); // (thumbnail, medium, large, full or custom size)
