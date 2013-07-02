@@ -34,7 +34,7 @@ add_shortcode( 'sermon', 'cs_sermon_single_shortcode' );
  	function cs_single_sermon_widget() {
  		$widget_ops = array('classname' => 'cs_sermon_single', 'description' => __(' Add a specific single sermon to your sidebar'));
  		$control_ops = array('width' => 250, 'height' => 350);
- 		$this->WP_Widget('cs_sermon_single', __('CS Sermons - Single Sermon'), $widget_ops, $control_ops);
+ 		$this->WP_Widget('cs_sermon_single', __('Single Sermon'), $widget_ops, $control_ops);
  	}
  	
  	function widget( $args, $instance ) {
@@ -115,7 +115,7 @@ add_shortcode( 'sermon', 'cs_sermon_single_shortcode' );
  	function cs_sermon_list() {
  		$widget_ops = array('classname' => 'cs_sermon_list', 'description' => __('Show a list of Recent Sermons'));
  		$control_ops = array('width' => 250, 'height' => 350);
- 		$this->WP_Widget('cs_sermon_list', __('CS Sermons - Recent List'), $widget_ops, $control_ops);
+ 		$this->WP_Widget('cs_sermon_list', __('Recent Sermons'), $widget_ops, $control_ops);
  	}
  	
  	function widget( $args, $instance ) {

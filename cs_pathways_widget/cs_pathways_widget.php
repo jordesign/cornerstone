@@ -161,9 +161,9 @@ class cs_pathways extends WP_Widget
     {
         $widget_ops = array(
                 'classname'     => 'cs_pathways',
-                'description'   => __( 'CornerStone Pathway' )
+                'description'   => __( 'Add a Pathway (made up of a title, image, text and link)' )
             );
-        parent::__construct( 'cs_pathways', __( 'CornerStone Pathway' ), $widget_ops );
+        parent::__construct( 'cs_pathways', __( 'Pathway' ), $widget_ops );
     }
 
 
