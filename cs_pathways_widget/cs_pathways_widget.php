@@ -11,6 +11,9 @@
 
 /* This widget incorporates MondayByNoons Widget Image Upload plugin - https://mondaybynoon.com/wordpress-widget-image-field/ */
 
+//Add Default Slide size
+add_image_size( 'cs_pathway', 300, 180, true ); 
+
 //Define WidgetImageField for use.
 if( !defined( 'IS_ADMIN' ) )
     define( 'IS_ADMIN',  is_admin() );
@@ -231,7 +234,7 @@ function widget( $args, $instance )
             <?php echo $before_title; ?><?php echo $headline; ?><?php echo $after_title; ?>
         <?php endif; ?>
         <?php if( !empty( $image_id ) ) : ?>
-            <?php $size = apply_filters( 'csPathway_size', "medium" ); // (thumbnail, medium, large, full or custom size) ?>
+            <?php $size = apply_filters( 'csPathway_size', "cs_pathway" ); // (thumbnail, medium, large, full or custom size) ?>
             <img src="<?php echo $image->get_image_src( $size ); ?>" width="<?php echo $image->get_image_width( $size ); ?>" height="<?php echo $image->get_image_height( $size ); ?>" />
         <?php endif; ?>
         <?php if( !empty( $blurb ) ) : ?>
