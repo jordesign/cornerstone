@@ -59,7 +59,7 @@ class cs_socialButtons extends WP_Widget {
 <?php if($cssb_title) { ?>
     <?php echo $before_title; ?><?php echo $cssb_title; ?><?php echo $after_title; ?>
 <?php } ?>
-<ul> 
+<ul class="cs_socialButtons"> 
     
     <?php if ($fb_id) { ?>
         <li class="cs_socialButton facebook">

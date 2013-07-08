@@ -20,8 +20,10 @@
   margin-right: 3px;
   font-size: 130%;
   position: relative; 
-  top: 4px;
+  top: 5px;
   color: #666;
+  text-decoration: none !important; 
+  margin-right: 5px;
 }
 
 [class*="foundicon-"]:before {
@@ -153,3 +155,5 @@
 }
 
 .cs_socialButtons { list-style: none; padding: 0; }
+    .cs_socialButtons li { margin-bottom: 5px; }
+    .cs_socialButtons a { text-decoration: none; }
