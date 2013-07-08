@@ -14,6 +14,15 @@
 //Add Default Slide size
 add_image_size( 'cs_pathway', 300, 180, true ); 
 
+// Enqueue CSS
+add_action( 'wp_enqueue_scripts', 'cs_pathway_styles' );
+function cs_pathway_styles() {
+    // Respects SSL, Style.css is relative to the current file
+    wp_register_style( 'cspathways-style', plugins_url('style.css', __FILE__) );
+   // wp_enqueue_script('csSermons-script', plugins_url('csSermons.js', __FILE__) ,array( 'jquery' ) );
+    wp_enqueue_style( 'cspathways-style' );
+}
+
 //Define WidgetImageField for use.
 if( !defined( 'IS_ADMIN' ) )
     define( 'IS_ADMIN',  is_admin() );
@@ -46,7 +55,7 @@ class WidgetImageField
             wp_enqueue_script( 'widgetimagefield', WIDGET_IMAGE_FIELD_URL . '/script.js', array( 'jquery', 'jquery-ui-core', 'thickbox', 'media-upload' ), false, true );
 
             wp_enqueue_style( 'thickbox' );
-            wp_enqueue_style( 'widgetimagefield', WIDGET_IMAGE_FIELD_URL . '/style.css' );
+            wp_enqueue_style( 'widgetimagefield', WIDGET_IMAGE_FIELD_URL . '/wifstyle.css' );
         }
 
         // set our properties
@@ -229,18 +238,20 @@ function widget( $args, $instance )
     echo $before_widget;
  
     ?>
-        <a href="<?php echo $link; ?>">
+    <div class="cs_pathway">
+        
         <?php if( !empty( $headline ) ) : ?>
-            <?php echo $before_title; ?><?php echo $headline; ?><?php echo $after_title; ?>
+            <?php echo $before_title; ?><a href="<?php echo $link; ?>"><?php echo $headline; ?><a href="<?php echo $link; ?>"><?php echo $after_title; ?></a>
         <?php endif; ?>
         <?php if( !empty( $image_id ) ) : ?>
             <?php $size = apply_filters( 'csPathway_size', "cs_pathway" ); // (thumbnail, medium, large, full or custom size) ?>
-            <img src="<?php echo $image->get_image_src( $size ); ?>" width="<?php echo $image->get_image_width( $size ); ?>" height="<?php echo $image->get_image_height( $size ); ?>" />
+            <a href="<?php echo $link; ?>"><img src="<?php echo $image->get_image_src( $size ); ?>" width="<?php echo $image->get_image_width( $size ); ?>" height="<?php echo $image->get_image_height( $size ); ?>" /></a>
         <?php endif; ?>
         <?php if( !empty( $blurb ) ) : ?>
-            <p><?php echo $blurb; ?></p>
+            <p><a href="<?php echo $link; ?>"><?php echo $blurb; ?></a></p>
         <?php endif; ?>
         </a>
+    </div>
     <?php
  
     echo $after_widget;

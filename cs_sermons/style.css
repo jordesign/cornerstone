@@ -1,7 +1,13 @@
 /* Basic Styles for CS Sermons */
 
 .cs_sermon { 
-    clear: both; padding: 15px 0;    
+    clear: both; 
+    padding: 15px 10px;
+    background: #f6f6f6;
+    -webkit-border-radius:5px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+        
 }
 
 .cs_sermon img { 
@@ -12,6 +18,12 @@
     border:1px solid #ddd; 
 }
 
+.sidebar .cs_sermon img { 
+
+    width: 32px;
+
+ }
+
 .cs_sermon_title {  
     font-size: 21px; 
     color: #555;
@@ -21,6 +33,8 @@
 .hasimage .cs_sermon_title { 
     margin-left: 100px;
  }
+ 
+ .sidebar .hasimage .cs_sermon_title { margin-left: 50px; }
 
 .cs_sermon_title a {  
     color: #555;
@@ -38,6 +52,13 @@
     margin-left: 100px;
  }
  
+ .sidebar .cs_sermon.hasimage audio { 
+ 
+     clear: both; 
+     margin-left: 0;
+     
+ } 
+ 
  .cs_sermon_meta { 
      font-size: 14px; 
      color: #777; 
@@ -54,3 +75,8 @@
  .hasimage .cs_sermon_meta { 
      margin-left: 100px; 
  }
+ .sidebar .hasimage .cs_sermon_meta { 
+ 
+     margin-left: 0;
+ 
+  }

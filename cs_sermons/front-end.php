@@ -103,8 +103,8 @@ function cs_list_sermons(
          		    }  ?>
      		        
      		        <p class="cs_sermon_title">
-     		            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a> &nbsp;
-     		            <span class="cs_sermon_date"><?php the_date(); ?></span>
+     		            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a> 
+     		            <span class="cs_sermon_date"><?php echo get_the_date(); ?></span>
      		        </p>
      		        <audio src="<?php echo the_field('sermon_audio'); ?>" controls="controls"></audio>
      		        <p class="cs_sermon_meta">

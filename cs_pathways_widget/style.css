@@ -1,2 +1,5 @@
-.iti-image-widget-field { overflow:hidden; zoom:1; padding-bottom:15px; }
-.iti-image-widget-image img { background:#fff; display:block; margin:10px auto 15px; border-radius:5px; border:1px solid #DFDFDF; max-width:99%; height:auto !important; }
+.cs_pathway { margin-bottom: 20px; }
+    .cs_pathway h3 { margin: 0 0 5px 0; }
+    .cs_pathway p { color: @midgrey; font-size: 14px; margin: 0; background: #eee;  }
+    .cs_pathway p a:link, .cs_pathway p a:visited { color: #777; display: block; padding: 3px 5px; }
+    .cs_pathway img { display: block; }
